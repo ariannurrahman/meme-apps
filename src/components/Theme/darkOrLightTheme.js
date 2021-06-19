@@ -16,7 +16,7 @@ export const darkTheme = createMuiTheme({
       secondary: "rgba(154, 164, 172,1)",
     },
 
-    contrastThreshold: 2,
+    contrastThreshold: 3,
   },
 });
 

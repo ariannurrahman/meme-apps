@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, ACTIVE_USER } from "./types";
+import { SIGN_IN, SIGN_OUT, DARK_MODE } from "./types";
 
 export const signIn = (userData) => {
   return {
@@ -10,5 +10,11 @@ export const signIn = (userData) => {
 export const signOut = () => {
   return {
     type: SIGN_OUT,
+  };
+};
+
+export const toggleTheme = () => {
+  return {
+    type: DARK_MODE,
   };
 };

@@ -56,10 +56,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Header = ({ props }) => {
-  const authMessage = useSelector((state) => state.auth.message);
-  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
-  const displayName = useSelector((state) => state.auth.userData.displayName);
-  const photoURL = useSelector((state) => state.auth.userData.photoURL);
+  const authMessage = useSelector((state) => state.auth?.message);
+  const isSignedIn = useSelector((state) => state.auth?.isSignedIn);
+  const displayName = useSelector((state) => state.auth?.userData?.displayName || "-");
+  const photoURL = useSelector((state) => state.auth?.userData?.photoURL || "-");
   const dispatch = useDispatch();
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(false);

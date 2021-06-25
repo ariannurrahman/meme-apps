@@ -8,9 +8,9 @@ const Profile = () => {
   const classes = customStyle();
   const dispatch = useDispatch();
   const [newDisplayName, setNewDisplayName] = useState("");
-  const photoURL = useSelector((state) => state.auth.userData.photoURL);
-  const displayName = useSelector((state) => state.auth.userData.displayName);
-  const email = useSelector((state) => state.auth.userData.email);
+  const photoURL = useSelector((state) => state.auth?.userData?.photoURL || "-");
+  const displayName = useSelector((state) => state.auth?.userData?.displayName || "-");
+  const email = useSelector((state) => state.auth?.userData?.email || "-");
 
   const onClickResetPassword = () => {
     try {

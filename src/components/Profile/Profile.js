@@ -37,9 +37,9 @@ const Profile = () => {
       <Box className={classes.wrapper}>
         <Image
           className={classes.profilePicture}
-          src={photoURL}
+          src={photoURL || ""}
           alt="profile picture"
-          aspectRatio="1"
+          aspectRatio={1}
           style={{ backgroundColor: "transparent", paddingTop: "0", paddingBottom: "20px" }}
         />
         <Typography variant="h6">Edit profile</Typography>
@@ -67,13 +67,7 @@ const Profile = () => {
             defaultValue={email}
             variant="outlined"
           />
-          <Button
-            className={classes.profileButton}
-            variant="contained"
-            color="secondary"
-            onClick={onClickSaveChange}
-            onClickSaveChange
-          >
+          <Button className={classes.profileButton} variant="contained" color="secondary" onClick={onClickSaveChange}>
             Save changes
           </Button>
           <Button className={classes.profileButton} variant="contained" color="primary" onClick={onClickResetPassword}>

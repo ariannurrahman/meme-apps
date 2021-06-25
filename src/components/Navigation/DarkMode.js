@@ -8,7 +8,7 @@ import grey from "@material-ui/core/colors/grey";
 
 const DarkMode = () => {
   const dispatch = useDispatch();
-  const theme = useSelector((state) => state.darkMode.darkMode);
+  const theme = useSelector((state) => state.theme.darkMode);
   const useStyles = makeStyles(() => ({
     iconWrapper: {
       width: "40px",

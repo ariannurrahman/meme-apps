@@ -1,4 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "firebase/auth";
+// import "firebase/analytics";
+// import "firebase/firestore"
 
 // THEME
 import { ThemeProvider } from "@material-ui/core";
@@ -11,10 +14,10 @@ import { darkTheme, lightTheme } from "./Theme/darkOrLightTheme";
 import Header from "./Navigation/Header";
 import Home from "./Home/Home";
 import { useSelector } from "react-redux";
+import Profile from "./Profile/Profile";
 
 const App = () => {
-  const theme = useSelector((state) => state.darkMode.darkMode);
-
+  const theme = useSelector((state) => state.theme.darkMode);
   const appliedTheme = createMuiTheme(theme ? lightTheme : darkTheme);
 
   return (
@@ -23,6 +26,7 @@ const App = () => {
         <Header />
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/profile" exact component={Profile} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

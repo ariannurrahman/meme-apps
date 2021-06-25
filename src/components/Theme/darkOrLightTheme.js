@@ -31,6 +31,9 @@ export const lightTheme = createMuiTheme({
     },
     text: {
       primary: "rgba(5, 5, 5,1)",
+      secondary: "rgba(5, 5, 5,1)",
+      disabled: "rgba(5,5, 5,1)",
+      hint: "rgba(5,5, 5,1)",
     },
   },
 });

@@ -12,6 +12,7 @@ import LoginModal from "../Auth/LoginModal";
 import SignupModal from "../Auth/SignupModal";
 import { useSelector, useDispatch } from "react-redux";
 import { resetErrorMessage, signOut } from "../../store/actions";
+import { shortenDisplayName } from "../utils/shortenDisplayName";
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
@@ -55,7 +56,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Header = ({ props }) => {
+const Header = ({ userUid }) => {
   const authMessage = useSelector((state) => state.auth?.message);
   const isSignedIn = useSelector((state) => state.auth?.isSignedIn);
   const displayName = useSelector((state) => state.auth?.userData?.displayName || "-");
@@ -65,7 +66,6 @@ const Header = ({ props }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
-
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -92,9 +92,9 @@ const Header = ({ props }) => {
           <DarkMode />
           <Avatar alt="profile avatar" src={photoURL} className={classes.avatar} />
           <Button variant="outlined" className={classes.profileButton} color="secondary">
-            <Link className={classes.profileLink} color="secondary" to="/profile">
+            <Link className={classes.profileLink} color="secondary" to={`/profile/${userUid}`}>
               <Typography tag="h3" className={classes.profileText} color="textPrimary">
-                {displayName || "-"}
+                {shortenDisplayName(displayName) || "-"}
               </Typography>
             </Link>
           </Button>
@@ -127,7 +127,7 @@ const Header = ({ props }) => {
   return (
     <nav>
       <CssBaseline />
-      <HideOnScroll {...props}>
+      <HideOnScroll>
         <AppBar className={classes.wrapper}>
           <Toolbar className={classes.wrapper}>
             <Box className={classes.childBox} display="flex" alignItems="center">
@@ -136,7 +136,7 @@ const Header = ({ props }) => {
                 toggleDrawer={toggleDrawer}
                 isSignedIn={isSignedIn}
                 signOutFunction={signOutAuth}
-                displayName={displayName}
+                displayName={shortenDisplayName(displayName)}
                 photoURL={photoURL}
               />
 

@@ -19,14 +19,15 @@ import Profile from "./Profile/Profile";
 const App = () => {
   const theme = useSelector((state) => state.theme.darkMode);
   const appliedTheme = createMuiTheme(theme ? lightTheme : darkTheme);
+  const userUid = useSelector((state) => state.auth?.userData?.uid || "");
 
   return (
     <BrowserRouter>
       <ThemeProvider theme={appliedTheme}>
-        <Header />
+        <Header userUid={userUid} />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/profile" exact component={Profile} />
+          <Route path="/profile/:uid" exact component={() => <Profile userUid={userUid} />} />
         </Switch>
       </ThemeProvider>
     </BrowserRouter>

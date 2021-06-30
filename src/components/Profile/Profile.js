@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetPasswordByEmail, changeProfileInfo } from "../../store/actions";
 import { customStyle } from "../Theme/customStyle";
 import Image from "material-ui-image";
-const Profile = () => {
+import { useParams } from "react-router-dom";
+const Profile = ({ userUid }) => {
+  const { uid } = useParams();
+
   const classes = customStyle();
   const dispatch = useDispatch();
   const [newDisplayName, setNewDisplayName] = useState("");
@@ -34,47 +37,59 @@ const Profile = () => {
 
   return (
     <Box className={classes.container}>
-      <Box className={classes.wrapper}>
-        <Image
-          className={classes.profilePicture}
-          src={photoURL || ""}
-          alt="profile picture"
-          aspectRatio={1}
-          style={{ backgroundColor: "transparent", paddingTop: "0", paddingBottom: "20px" }}
-        />
-        <Typography variant="h6">Edit profile</Typography>
-        <form className={classes.profileForm}>
-          {/* <Button variant="contained" component="label">
+      {uid === userUid ? (
+        <Box className={classes.wrapper}>
+          <Image
+            className={classes.profilePicture}
+            src={photoURL || ""}
+            alt="profile picture"
+            aspectRatio={1}
+            style={{ backgroundColor: "transparent", paddingTop: "0", paddingBottom: "20px" }}
+          />
+          <Typography variant="h6">Edit profile</Typography>
+          <form className={classes.profileForm}>
+            {/* <Button variant="contained" component="label">
             Upload File
             <input type="file" hidden accept="image/*" />
           </Button> */}
-          <TextField
-            className={classes.profileTextField}
-            color="secondary"
-            id="outlined-required"
-            label="Display name"
-            defaultValue={displayName}
-            variant="outlined"
-            onChange={onChangeDisplayName}
-          />
+            <TextField
+              className={classes.profileTextField}
+              color="secondary"
+              id="outlined-required"
+              label="Display name"
+              defaultValue={displayName}
+              variant="outlined"
+              onChange={onChangeDisplayName}
+            />
 
-          <TextField
-            className={classes.profileTextField}
-            color="secondary"
-            disabled
-            id="outlined-disabled"
-            label="Email"
-            defaultValue={email}
-            variant="outlined"
-          />
-          <Button className={classes.profileButton} variant="contained" color="secondary" onClick={onClickSaveChange}>
-            Save changes
-          </Button>
-          <Button className={classes.profileButton} variant="contained" color="primary" onClick={onClickResetPassword}>
-            Reset Password
-          </Button>
-        </form>
-      </Box>
+            <TextField
+              className={classes.profileTextField}
+              color="secondary"
+              disabled
+              id="outlined-disabled"
+              label="Email"
+              defaultValue={email}
+              variant="outlined"
+            />
+            <Button className={classes.profileButton} variant="contained" color="secondary" onClick={onClickSaveChange}>
+              Save changes
+            </Button>
+            <Button
+              className={classes.profileButton}
+              variant="contained"
+              color="primary"
+              onClick={onClickResetPassword}
+            >
+              Reset Password
+            </Button>
+          </form>
+        </Box>
+      ) : (
+        <>
+          <h1>Oppss..</h1>
+          <h1>User not found</h1>
+        </>
+      )}
     </Box>
   );
 };

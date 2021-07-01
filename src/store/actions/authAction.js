@@ -14,13 +14,13 @@ import {
 } from "./types";
 
 var firebaseConfig = {
-  apiKey: "AIzaSyCZdZIy2_pGYQ0h4Lp_JoFQnhwf8q3jdpU",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "fun-meme-is-fun.firebaseapp.com",
   projectId: "fun-meme-is-fun",
   storageBucket: "fun-meme-is-fun.appspot.com",
-  messagingSenderId: "334829760699",
-  appId: "1:334829760699:web:8f8a9e8849b95c072bf99e",
-  measurementId: "G-PNLGS7KNSD",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 if (!firebase.apps.length) {

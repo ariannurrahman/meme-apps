@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { AppBar, Toolbar, Typography, CssBaseline, Button, Box, Avatar } from "@material-ui/core";
-import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 // LOCAL
 import HideOnScroll from "./HideOnScroll";
 import LeftDrawer from "./LeftDrawer";
 import DarkMode from "./DarkMode";
-
+import UploadImage from "../UploadImage/UploadImage";
 import LoginModal from "../Auth/LoginModal";
 import SignupModal from "../Auth/SignupModal";
 import { useSelector, useDispatch } from "react-redux";
 import { resetErrorMessage, signOut } from "../../store/actions";
 import { shortenDisplayName } from "../utils/shortenDisplayName";
+
 const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
@@ -146,10 +146,7 @@ const Header = ({ userUid }) => {
                 </Typography>
               </Link>
             </Box>
-            <Button className={classes.postButton} variant="contained" color="secondary">
-              <AddBoxOutlinedIcon color="primary" />
-              Post a picture
-            </Button>
+            <UploadImage />
             {renderAuthButton()}
           </Toolbar>
         </AppBar>

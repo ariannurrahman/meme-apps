@@ -62,6 +62,7 @@ const LoginModal = (props) => {
 
     try {
       dispatch(signInWithEmailPassword(loginForm.email, loginForm.password));
+      toggle();
     } catch (error) {
       throw error;
     }

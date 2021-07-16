@@ -42,13 +42,7 @@ export const customStyle = makeStyles(() => ({
     margin: "8px 8px",
     width: "280px",
   },
-  profileWrapper: {
-    width: "200px",
-    height: "100px",
-    backgroundColor: "transparent",
-    position: "relative",
-    borderRadius: "50%",
-  },
+
   profilePicture: {
     position: "relative !important",
     width: "100%",
@@ -59,5 +53,49 @@ export const customStyle = makeStyles(() => ({
     width: "280px",
     margin: "12px",
     padding: "8px",
+  },
+
+  postFormContainer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  postFormWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+  },
+  postFormTop: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "200px",
+  },
+  postFormBottom: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    width: "100%",
+  },
+  postButton: {
+    padding: "8px",
+    width: "160px",
+    alignSelf: "center",
+  },
+
+  postImage: {
+    display: "inline-block",
+    minWidth: "160px",
+    minHeight: "100%",
+    objectFit: "cover !important",
+    flex: 1,
+  },
+  postForm: {
+    width: "80%",
+    marginTop: "12px",
+    border: "2px solid grey",
+    padding: "8px",
+    // flex: "1",
   },
 }));

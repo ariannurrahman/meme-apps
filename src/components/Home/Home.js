@@ -1,8 +1,13 @@
+import { Container } from "@material-ui/core";
+
+import PostList from "./PostList";
+
 const Home = () => {
   return (
-    <div style={{ height: "200vh" }}>
+    <Container style={{ height: "200vh" }}>
       <h1>Home</h1>
-    </div>
+      <PostList />
+    </Container>
   );
 };
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { AppBar, Toolbar, Typography, CssBaseline, Button, Box, Avatar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
+
 // LOCAL
 import HideOnScroll from "./HideOnScroll";
 import LeftDrawer from "./LeftDrawer";
@@ -66,6 +68,9 @@ const Header = ({ userUid }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openSignupModal, setOpenSignupModal] = useState(false);
+
+  const [openPostModal, setOpenPostModal] = useState(false);
+
   const toggleDrawer = () => {
     setOpenDrawer(!openDrawer);
   };
@@ -124,6 +129,10 @@ const Header = ({ userUid }) => {
     dispatch(signOut());
   };
 
+  const togglePostModal = () => {
+    setOpenPostModal(!openPostModal);
+  };
+
   return (
     <nav>
       <CssBaseline />
@@ -146,7 +155,17 @@ const Header = ({ userUid }) => {
                 </Typography>
               </Link>
             </Box>
-            <UploadImage />
+            <Button
+              onClick={togglePostModal}
+              variant="contained"
+              color="secondary"
+              component="span"
+              className={classes.postButton}
+            >
+              <AddBoxOutlinedIcon color="primary" />
+              Post a picture
+            </Button>
+            <UploadImage toggle={togglePostModal} isOpen={openPostModal} userUid={userUid || ""} />
             {renderAuthButton()}
           </Toolbar>
         </AppBar>

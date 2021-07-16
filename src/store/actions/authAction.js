@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import { auth, providerAuth } from "../../components/Firebase/FirebaseConfig";
 import {
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
@@ -13,35 +14,18 @@ import {
   CHANGE_DISPLAY_NAME_ERROR,
 } from "./types";
 
-var firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: "fun-meme-is-fun.firebaseapp.com",
-  projectId: "fun-meme-is-fun",
-  storageBucket: "fun-meme-is-fun.appspot.com",
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app(); // if already initialized, use that one
-}
-
 export const signInWithProvider = (providerName) => (dispatch) => {
   let provider;
 
   if (providerName === "GOOGLE") {
-    provider = new firebase.auth.GoogleAuthProvider();
+    provider = new providerAuth.GoogleAuthProvider();
   }
   if (providerName === "FACEBOOK") {
-    provider = new firebase.auth.FacebookAuthProvider();
+    provider = new providerAuth.FacebookAuthProvider();
   }
 
   firebase.auth().useDeviceLanguage();
-  firebase
-    .auth()
+  auth
     .signInWithPopup(provider)
     .then((result) => {
       // var credential = result.credential;
@@ -58,11 +42,11 @@ export const signInWithProvider = (providerName) => (dispatch) => {
 
 export const signInWithEmailPassword = (email, password) => (dispatch) => {
   try {
-    firebase
-      .auth()
+    auth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        dispatch({ type: SIGN_UP_SUCCESS, payload: result });
+        let user = result.user;
+        dispatch({ type: SIGN_IN_SUCCESS, payload: user, message: "Sign in success" });
       })
       .catch((error) => {
         dispatch({ type: SIGN_IN_ERROR, payload: error.message });
@@ -76,8 +60,7 @@ export const signUpWithEmailpassword = (form) => (dispatch) => {
   let { email, password, displayName } = form;
 
   try {
-    firebase
-      .auth()
+    auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         var user = userCredential.user;
@@ -86,7 +69,7 @@ export const signUpWithEmailpassword = (form) => (dispatch) => {
             displayName: displayName,
           })
           .then(() => {
-            dispatch({ type: SIGN_IN_SUCCESS, payload: user });
+            dispatch({ type: SIGN_UP_SUCCESS, payload: user });
           })
           .catch((error) => {
             dispatch({ type: SIGN_UP_ERROR, payload: error.message });
@@ -103,8 +86,7 @@ export const signUpWithEmailpassword = (form) => (dispatch) => {
 };
 
 export const resetPasswordByEmail = (email) => (dispatch) => {
-  firebase
-    .auth()
+  auth
     .sendPasswordResetEmail(email)
     .then((result) => {
       dispatch({
@@ -121,7 +103,7 @@ export const resetPasswordByEmail = (email) => (dispatch) => {
 };
 
 export const changeProfileInfo = (newName, photoSrc) => (dispatch) => {
-  const user = firebase.auth().currentUser;
+  const user = auth.currentUser;
 
   if (user) {
     user
@@ -140,8 +122,7 @@ export const changeProfileInfo = (newName, photoSrc) => (dispatch) => {
 
 export const signOut = () => (dispatch) => {
   try {
-    firebase
-      .auth()
+    auth
       .signOut()
       .then(() => {
         dispatch({ type: SIGN_OUT_SUCCESS, payload: "Sign out success" });

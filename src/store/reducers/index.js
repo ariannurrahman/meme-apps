@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import AuthReducer from "./AuthReducer";
-
+import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
-import storage from "redux-persist/lib/storage";
+import AuthReducer from "./AuthReducer";
 import ThemeReducer from "./ThemeReducer";
+import LoadingReducer from "./LoadingReducer";
 
 const themePersistConfig = {
   key: "dark",
@@ -19,4 +19,5 @@ const authPersistConfig = {
 export default combineReducers({
   auth: persistReducer(authPersistConfig, AuthReducer),
   theme: persistReducer(themePersistConfig, ThemeReducer),
+  isLoading: LoadingReducer,
 });

@@ -1,5 +1,5 @@
 import firebase from "firebase/app";
-import { auth, providerAuth } from "../../components/Firebase/FirebaseConfig";
+import { auth, googleProvider } from "../../components/Firebase/FirebaseConfig";
 import {
   SIGN_IN_SUCCESS,
   SIGN_IN_ERROR,
@@ -15,27 +15,21 @@ import {
 } from "./types";
 
 export const signInWithProvider = (providerName) => (dispatch) => {
-  let provider;
-
-  if (providerName === "GOOGLE") {
-    provider = new providerAuth.GoogleAuthProvider();
-  }
-  if (providerName === "FACEBOOK") {
-    provider = new providerAuth.FacebookAuthProvider();
-  }
-
   firebase.auth().useDeviceLanguage();
   auth
-    .signInWithPopup(provider)
+    .signInWithPopup(googleProvider)
     .then((result) => {
       // var credential = result.credential;
       // var token = credential.accessToken;
+      console.log("result: ", result);
       var user = result.user;
       // var displayName = user.displayName;
 
       dispatch({ type: SIGN_IN_SUCCESS, payload: user });
     })
     .catch((error) => {
+      console.log("error: ", error);
+
       dispatch({ type: SIGN_IN_ERROR, payload: error.message });
     });
 };

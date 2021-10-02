@@ -10,8 +10,20 @@ export const customHomeStyle = makeStyles(() => ({
   cardContainer: {
     marginBottom: "8vh",
   },
+  imageContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   cardImage: {
-    objectFit: "contain",
+    display: "block",
+    minWidth: "160px",
+    minHeight: "100%",
+    width: "auto",
+    height: "auto",
+    flex: "1",
+    objectFit: "contain !important",
+    padding: "12px",
   },
   titleText: {
     fontWeight: "800",
@@ -22,5 +34,19 @@ export const customHomeStyle = makeStyles(() => ({
   },
   cardDivider: {
     margin: "8vh 0",
+  },
+  shareContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+  },
+  shareWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "80%",
   },
 }));

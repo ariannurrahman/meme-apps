@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, TextField, Box } from "@material-ui/core";
 import Image from "material-ui-image";
-
+import Swal from "sweetalert2";
 import AddBoxOutlinedIcon from "@material-ui/icons/AddBoxOutlined";
+import { useDispatch, useSelector } from "react-redux";
 
 //LOCAL
 import { customStyle } from "../Theme/customStyle";
-import { useDispatch } from "react-redux";
 import { uploadFile } from "../../store/actions";
+import { LoadingMain } from "../Loading/Loading";
 const UploadImage = ({ toggle, isOpen, userUid }) => {
   const classes = customStyle();
   const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme.darkMode);
+
   const [imagePreview, setImagePreview] = useState({});
   const [postFile, setPostFile] = useState([]);
   const [isFinishChooseFile, setIsFinishChooseFile] = useState(false);
@@ -29,12 +32,32 @@ const UploadImage = ({ toggle, isOpen, userUid }) => {
     }));
   };
 
-  const onClickPost = () => {
-    dispatch(uploadFile(postForm, userUid, postFile));
+  const onClickPost = async () => {
+    if (!postForm.title) return Swal.fire("Error", "Please input title of your post", "error");
+    if (!postForm.description) return Swal.fire("Error", "Please input description of your post", "error");
+
+    await dispatch(uploadFile(postForm, userUid, postFile));
+
+    Swal.fire({
+      title: "Your post has been posted",
+      icon: "success",
+      showCancelButton: false,
+      background: theme ? "rgb(250,250,250)" : "rgb(48,48,48)",
+      confirmButtonColor: theme ? "" : "rgb(154,164,172)",
+      confirmButtonText: "<b>Let's laugh</b>",
+    });
+
+    setImagePreview({});
+    setPostFile([]);
+    setPostForm({});
+    setIsFinishChooseFile(false);
+
+    toggle();
   };
 
   return (
     <Dialog fullWidth open={isOpen} onClose={toggle}>
+      <LoadingMain />
       <DialogTitle onClose={toggle}>Upload a Post</DialogTitle>
       <Divider />
 
@@ -77,7 +100,7 @@ const UploadImage = ({ toggle, isOpen, userUid }) => {
 
       {!isFinishChooseFile ? (
         <form className={classes.postFormWrapper}>
-          <DialogContent>
+          <DialogContent style={{ paddingTop: "0px" }}>
             <input
               name="image"
               accept="image/*"
@@ -88,7 +111,7 @@ const UploadImage = ({ toggle, isOpen, userUid }) => {
               onChange={(e) => onChangeUploadPicture(e)}
             />
             <label htmlFor="raised-button-file">
-              <Button variant="contained" color="secondary" component="span" className={classes.postButton}>
+              <Button variant="contained" color="secondary" component="span" className={classes.chooseFile}>
                 <AddBoxOutlinedIcon color="primary" />
                 Choose a file
               </Button>
@@ -122,7 +145,13 @@ const UploadImage = ({ toggle, isOpen, userUid }) => {
             </Button>
           </>
         ) : (
-          <Button variant="contained" color="secondary" component="span" className={classes.postButton}>
+          <Button
+            onClick={toggle}
+            variant="contained"
+            color="secondary"
+            component="span"
+            className={classes.postButton}
+          >
             Cancel
           </Button>
         )}

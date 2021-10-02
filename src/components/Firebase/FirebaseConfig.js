@@ -21,5 +21,5 @@ if (!firebase.apps.length) {
 const firestore = firebase.firestore();
 const storage = firebase.storage();
 const auth = firebase.auth();
-const providerAuth = firebase.auth;
-export { storage, firestore, auth, providerAuth, firebase as default };
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+export { storage, firestore, auth, googleProvider, firebase as default };

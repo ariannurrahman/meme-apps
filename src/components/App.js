@@ -15,6 +15,7 @@ import Header from "./Navigation/Header";
 import Home from "./Home/Home";
 import { useSelector } from "react-redux";
 import Profile from "./Profile/Profile";
+import "./style.css";
 
 const App = () => {
   const theme = useSelector((state) => state.theme.darkMode);

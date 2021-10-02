@@ -83,13 +83,19 @@ export const customStyle = makeStyles(() => ({
     width: "160px",
     alignSelf: "center",
   },
+  chooseFile: {
+    padding: "8px",
+    width: "160px",
+    alignSelf: "center",
+  },
 
   postImage: {
-    display: "inline-block",
+    display: "block",
     minWidth: "160px",
     minHeight: "100%",
-    objectFit: "cover !important",
-    flex: 1,
+    width: "auto",
+    height: "auto",
+    flex: "1",
   },
   postForm: {
     width: "80%",

@@ -7,7 +7,6 @@ import Image from "material-ui-image";
 import { useParams } from "react-router-dom";
 const Profile = ({ userUid }) => {
   const { uid } = useParams();
-
   const classes = customStyle();
   const dispatch = useDispatch();
   const [newDisplayName, setNewDisplayName] = useState("");
@@ -37,7 +36,7 @@ const Profile = ({ userUid }) => {
 
   return (
     <Box className={classes.container}>
-      {uid === userUid ? (
+      {userUid === uid ? (
         <Box className={classes.wrapper}>
           <Image
             className={classes.profilePicture}
@@ -85,10 +84,10 @@ const Profile = ({ userUid }) => {
           </form>
         </Box>
       ) : (
-        <>
+        <Box className={classes.wrapper}>
           <h1>Oppss..</h1>
           <h1>User not found</h1>
-        </>
+        </Box>
       )}
     </Box>
   );

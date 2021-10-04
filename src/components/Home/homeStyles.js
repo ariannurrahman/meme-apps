@@ -44,7 +44,7 @@ export const customHomeStyle = makeStyles(() => ({
   },
   shareWrapper: {
     display: "flex",
-    flexDirection: "row",
+    flexFlow: "wrap row",
     justifyContent: "space-around",
     alignItems: "center",
     width: "80%",

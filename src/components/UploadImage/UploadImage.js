@@ -45,6 +45,8 @@ const UploadImage = ({ toggle, isOpen, userUid }) => {
       background: theme ? "rgb(250,250,250)" : "rgb(48,48,48)",
       confirmButtonColor: theme ? "" : "rgb(154,164,172)",
       confirmButtonText: "<b>Let's laugh</b>",
+    }).then(() => {
+      window.location.reload();
     });
 
     setImagePreview({});

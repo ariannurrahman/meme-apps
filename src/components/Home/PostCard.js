@@ -22,16 +22,19 @@ import { firestore } from "../Firebase/FirebaseConfig";
 import { useSelector } from "react-redux";
 
 import ShareModal from "./ShareModal";
+import { useHistory } from "react-router";
 const PostCard = ({ data }) => {
+  const history = useHistory();
   const classes = customHomeStyle();
   const [cardData, setCardData] = useState([]);
   const [showShareModal, setShowShareModal] = useState(false);
 
-  const userId = useSelector((state) => state.auth.userData.uid);
+  const userId = useSelector((state) => state?.auth?.userData?.uid || "");
   const theme = useSelector((state) => state.theme.darkMode);
 
   useEffect(() => {
-    setCardData(data);
+    let sortedData = data.sort((a, b) => b.createdAt - a.createdAt);
+    setCardData(sortedData);
   }, [setCardData, data]);
 
   const onClickToVote = (IDToBeUpVoted, condition) => {
@@ -51,8 +54,6 @@ const PostCard = ({ data }) => {
         if (condition === "increase") {
           let isAlreadyUpVoted = cardData[0].upVote.indexOf(userId);
           let isAlreadyDownVoted = cardData[0].downVote.indexOf(userId);
-
-          // 612f8df4eb7ea300122db2a1
 
           if (isAlreadyDownVoted !== -1) {
             item.downVote.splice(isAlreadyDownVoted, 1);
@@ -100,7 +101,7 @@ const PostCard = ({ data }) => {
           return (
             <div key={index}>
               <Card style={{ width: "300px" }} elevation={3} variant="outlined" className={classes.cardContainer}>
-                <CardActionArea>
+                <CardActionArea onClick={() => history.push(`/post/${item.id}`)}>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h3" className={classes.titleText}>
                       {item.title}

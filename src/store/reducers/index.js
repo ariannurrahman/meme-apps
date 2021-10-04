@@ -12,7 +12,7 @@ const themePersistConfig = {
 };
 
 const authPersistConfig = {
-  key: "auth",
+  key: "memeAuth",
   storage: storage,
 };
 
